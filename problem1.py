@@ -4,7 +4,7 @@ import json
 import googlemaps
 
 # Create the map plotter:
-apikey = 'AIzaSyDbyq06H7kJtIKqnU7dBtLybsn5_O-LUOA' # (your API key here)
+apikey = 'AIzaSyDbyq06H7kJt' # (your API key here)
 gmap = gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 11, apikey=apikey)
 
 hub_lats, hub_lngs = zip(*[
