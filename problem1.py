@@ -17,7 +17,6 @@ def sort_hub(ori_hub_dest,copy_hub_name,copy_hub_lats,copy_hub_lngs):
             copy_hub_lats[idx][i],copy_hub_lats[idx][min_idx] = copy_hub_lats[idx][min_idx],copy_hub_lats[idx][i]
             copy_hub_lngs[idx][i],copy_hub_lngs[idx][min_idx] = copy_hub_lngs[idx][min_idx],copy_hub_lngs[idx][i]
 
-
 ############# Part 1 ###############
 
 # Create the map plotter:
@@ -68,7 +67,8 @@ hub_dest=([0]*len(hub_name),[0]*len(hub_name),[0]*len(hub_name))
 
 # Distance between origin and destination
 count=0
-while count<3:
+n=len(cus_no)
+while count<n:
     for i in range(len(hub_name)):
         urlpanjang=url+'origins='+str(cus_origin_lats[count])+','+str(cus_origin_lngs[count])+'&destinations='+str(hub_lats[i])+','+str(hub_lngs[i])+'&key='+api_key
         r=requests.get(urlpanjang)
@@ -78,7 +78,7 @@ while count<3:
 
 # Distance between hub and destination
 count=0
-while count<3:
+while count<n:
     for i in range(len(hub_name)):
         urlpanjang=url+'origins='+str(hub_lats[i])+','+str(hub_lngs[i])+'&destinations='+str(cus_dest_lats[count])+','+str(cus_dest_lngs[count])+'&key='+api_key
         r=requests.get(urlpanjang)
@@ -89,10 +89,10 @@ while count<3:
 print("Distance between origin and destination through hub")
 ori_hub_dest=([0]*len(hub_name),[0]*len(hub_name),[0]*len(hub_name))
 count=0
-while count<3:
+while count<n:
     for i in range(len(hub_name)):
         ori_hub_dest[count][i]=ori_hub[count][i]+hub_dest[count][i]
-        print("customer",[count+1],": ",(ori_hub_dest[count][i]/1000),"km -> ",hub_name[i])
+        print("customer",[count+1],": ",round((ori_hub_dest[count][i]/1000),1),"km -> ",hub_name[i])
     count+=1
 
 print("")
@@ -107,7 +107,7 @@ print("")
 
 print("The shortest distance ")
 for i in range(len(copy_ori_hub_dest)):
-    print("Customer",[i+1]," : ",(copy_ori_hub_dest[i][0]/1000),"km -> ",copy_hub_name[i][0])
+    print("Customer",[i+1]," : ",round((copy_ori_hub_dest[i][0]/1000),1),"km -> ",copy_hub_name[i][0])
 
 ############ Part 4 ###############
 
