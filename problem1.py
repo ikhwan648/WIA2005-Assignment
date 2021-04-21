@@ -20,7 +20,7 @@ def sort_hub(ori_hub_dest,copy_hub_name,copy_hub_lats,copy_hub_lngs):
 ############# Part 1 ###############
 
 # Create the map plotter:
-api_key = 'AIzaSyDbyq06H7kJ'
+api_key = 'AIzaSyDbyq06'
 gmap = gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
 gmap.coloricon="http://www.googlemapsmarkers.com/v1/%s/"
 
