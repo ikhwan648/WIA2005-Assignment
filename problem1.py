@@ -3,119 +3,124 @@ import requests
 import json
 from copy import deepcopy
 
-######### Selection Sort ##############
+api_key = 'AIzaSyDbyq06H7kJtIKqnU7dBtLybsn5_O-LUOA'
+url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 
-def sort_hub(ori_hub_dest,copy_hub_name,copy_hub_lats,copy_hub_lngs):
-    for idx in range(len(ori_hub_dest)):
-        for i in range(len(ori_hub_dest[idx])):
-            min_idx = i
-            for j in range( i +1, len(ori_hub_dest[idx])):
-                if ori_hub_dest[idx][min_idx] > ori_hub_dest[idx][j]:
-                    min_idx = j
-            ori_hub_dest[idx][i],ori_hub_dest[idx][min_idx] = ori_hub_dest[idx][min_idx],ori_hub_dest[idx][i]
-            copy_hub_name[idx][i],copy_hub_name[idx][min_idx] = copy_hub_name[idx][min_idx],copy_hub_name[idx][i]
-            copy_hub_lats[idx][i],copy_hub_lats[idx][min_idx] = copy_hub_lats[idx][min_idx],copy_hub_lats[idx][i]
-            copy_hub_lngs[idx][i],copy_hub_lngs[idx][min_idx] = copy_hub_lngs[idx][min_idx],copy_hub_lngs[idx][i]
+class problem1:
 
-############# Part 1 ###############
+    def __init__(self, hub_name, hub_lats, hub_lngs, cus_no, cus_origin_lats, cus_origin_lngs, cus_dest_lats,
+                 cus_dest_lngs):
+        self._hub_name = hub_name
+        self._hub_lats = hub_lats
+        self._hub_lngs = hub_lngs
+        self._cus_no = cus_no
+        self._cus_origin_lats = cus_origin_lats
+        self._cus_origin_lngs = cus_origin_lngs
+        self._cus_dest_lats = cus_dest_lats
+        self._cus_dest_lngs = cus_dest_lngs
+        self._ori_hub_dest = tuple((([0 for i in range(len(self._hub_name))]) for i in range(len(self._cus_no))))
+        self._copy_ori_hub_dest = ()
+        self._copy_hub_name = (list(self._hub_name), list(self._hub_name), list(self._hub_name))
+        self._copy_hub_lats = (list(self._hub_lats), list(self._hub_lats), list(self._hub_lats))
+        self._copy_hub_lngs = (list(self._hub_lngs), list(self._hub_lngs), list(self._hub_lngs))
 
-# Create the map plotter:
-api_key = 'AIzaSyDbyq06'
-gmap = gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
-gmap.coloricon="http://www.googlemapsmarkers.com/v1/%s/"
+    def solving_Problem1(self):
+        gmap = gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
+        gmap.coloricon = "http://www.googlemapsmarkers.com/v1/%s/"
 
-hub_name, hub_lats, hub_lngs = zip(*[
-    ('City-link Express (Port Klang)',3.0319924887507144, 101.37344116244806),
-    ('Pos Laju (Petaling Jaya)',3.112924170027219, 101.63982650389863),
-    ('GDEX (Batu Caves)',3.265154613796736, 101.68024844550233),
-    ('J&T (Kajang)',2.9441205329488325, 101.7901521759029),
-    ('DHL (Sungai Buloh)',3.2127230893650065, 101.57467295692778),
-])
+        for i in range(len(self._hub_name)):
+            gmap.marker(self._hub_lats[i], self._hub_lngs[i], color='blue', title=self._hub_name[i])
+        gmap.draw("map_mark_hub.html")
 
-cus_no,cus_origin_lats, cus_origin_lngs = zip(*[
-    ('Customer 1',3.3615395462207878, 101.56318183511695),
-    ('Customer 2',3.049398375759954, 101.58546611160301),
-    ('Customer 3',3.141855957281073, 101.76158583424586),
-])
+        print("Distance between origin and destination")
+        for i in range(len(self._cus_origin_lats)):
+            urlpanjang = url + 'origins=' + str(self._cus_origin_lats[i]) + ',' + str(
+                self._cus_origin_lngs[i]) + '&destinations=' + str(self._cus_dest_lats[i]) + ',' + str(
+                self._cus_dest_lngs[i]) + '&key=' + api_key
+            r = requests.get(urlpanjang)
+            x = r.json()
+            print("Customer", [i + 1], ": ", x['rows'][0]['elements'][0]['distance']['text'])
+        print("")
 
-cus_dest_lats, cus_dest_lngs = zip(*[
-    (3.1000170516638885, 101.53071480907951),   #Customer 1
-    (3.227994355250716, 101.42730357605375),    #Customer 2
-    (2.9188704151716256, 101.65251821655471),   #Customer 3
-])
+        ori_hub = tuple((([0 for i in range(len(self._hub_name))]) for i in range(len(self._cus_no))))
+        hub_dest = tuple((([0 for i in range(len(self._hub_name))]) for i in range(len(self._cus_no))))
 
-for i in range(len(hub_name)):
-    gmap.marker(hub_lats[i],hub_lngs[i],color='blue',title=hub_name[i])
-gmap.draw("map_mark_hub.html")
+        # Distance between origin and destination
+        count = 0
+        n = len(self._cus_no)
+        while count < n:
+            for i in range(len(self._hub_name)):
+                urlpanjang = url + 'origins=' + str(self._cus_origin_lats[count]) + ',' + str(
+                    self._cus_origin_lngs[count]) + '&destinations=' + str(self._hub_lats[i]) + ',' + str(
+                    self._hub_lngs[i]) + '&key=' + api_key
+                r = requests.get(urlpanjang)
+                x = r.json()
+                ori_hub[count][i] = x['rows'][0]['elements'][0]['distance']['value']
+            count += 1
 
-########### Part 2 ###############
+        # Distance between hub and destination
+        count = 0
+        while count < n:
+            for i in range(len(self._hub_name)):
+                urlpanjang = url + 'origins=' + str(self._hub_lats[i]) + ',' + str(
+                    self._hub_lngs[i]) + '&destinations=' + str(self._cus_dest_lats[count]) + ',' + str(
+                    self._cus_dest_lngs[count]) + '&key=' + api_key
+                r = requests.get(urlpanjang)
+                x = r.json()
+                hub_dest[count][i] = x['rows'][0]['elements'][0]['distance']['value']
+            count += 1
 
-url ='https://maps.googleapis.com/maps/api/distancematrix/json?'
-print("Distance between origin and destination")
-for i in range(len(cus_origin_lats)):
-    urlpanjang=url+'origins='+str(cus_origin_lats[i])+','+str(cus_origin_lngs[i])+'&destinations='+str(cus_dest_lats[i])+','+str(cus_dest_lngs[i])+'&key='+api_key
-    r=requests.get(urlpanjang)
-    x = r.json()
-    print("Customer",[i+1],": ",x['rows'][0]['elements'][0]['distance']['text'])
+        print("Distance between origin and destination through hub")
+        count = 0
+        while count < n:
+            for i in range(len(self._hub_name)):
+                self._ori_hub_dest[count][i] = ori_hub[count][i] + hub_dest[count][i]
+                print("customer", [count + 1], ": ", round((self._ori_hub_dest[count][i] / 1000), 1), "km -> ",self._hub_name[i])
+            count += 1
+        
+        print('')
 
-print("")
+        self._copy_ori_hub_dest = deepcopy(self._ori_hub_dest)
+        
+        self.__sorting()
 
-######### Part 3 #############
+        for idx in range(len(self._ori_hub_dest)):
+            for i in range(len(self._ori_hub_dest[idx])):
+                print("Customer", [idx + 1], ": ", round((self._copy_ori_hub_dest[idx][i] / 1000), 1), "km -> ",self._copy_hub_name[idx][i])
 
-ori_hub=([0]*len(hub_name),[0]*len(hub_name),[0]*len(hub_name))
-hub_dest=([0]*len(hub_name),[0]*len(hub_name),[0]*len(hub_name))
+        print('')
 
-# Distance between origin and destination
-count=0
-n=len(cus_no)
-while count<n:
-    for i in range(len(hub_name)):
-        urlpanjang=url+'origins='+str(cus_origin_lats[count])+','+str(cus_origin_lngs[count])+'&destinations='+str(hub_lats[i])+','+str(hub_lngs[i])+'&key='+api_key
-        r=requests.get(urlpanjang)
-        x = r.json()
-        ori_hub[count][i]=x['rows'][0]['elements'][0]['distance']['value']
-    count+=1
+        print("The shortest distance ")
+        for i in range(len(self._copy_ori_hub_dest)):
+            print("Customer", [i + 1], ": ", round((self._copy_ori_hub_dest[i][0] / 1000), 1), "km -> ",self._copy_hub_name[i][0])
 
-# Distance between hub and destination
-count=0
-while count<n:
-    for i in range(len(hub_name)):
-        urlpanjang=url+'origins='+str(hub_lats[i])+','+str(hub_lngs[i])+'&destinations='+str(cus_dest_lats[count])+','+str(cus_dest_lngs[count])+'&key='+api_key
-        r=requests.get(urlpanjang)
-        x = r.json()
-        hub_dest[count][i]=x['rows'][0]['elements'][0]['distance']['value']
-    count+=1
+        for i in range(len(self._cus_no)):
+            gmap.directions(
+                (self._cus_origin_lats[i], self._cus_origin_lngs[i]),
+                (self._cus_dest_lats[i], self._cus_dest_lngs[i]),
+                waypoints=[(self._cus_origin_lats[i], self._cus_origin_lngs[i]),
+                           (self._copy_hub_lats[i][0], self._copy_hub_lngs[i][0]),
+                           (self._cus_dest_lats[i], self._cus_dest_lngs[i])]
+            )
+        gmap.draw('map_line_shortest.html')
 
-print("Distance between origin and destination through hub")
-ori_hub_dest=([0]*len(hub_name),[0]*len(hub_name),[0]*len(hub_name))
-count=0
-while count<n:
-    for i in range(len(hub_name)):
-        ori_hub_dest[count][i]=ori_hub[count][i]+hub_dest[count][i]
-        print("customer",[count+1],": ",round((ori_hub_dest[count][i]/1000),1),"km -> ",hub_name[i])
-    count+=1
+    def get_copy_ori_hub_dest(self):
+        return self._copy_ori_hub_dest
 
-print("")
+    def get_ori_hub_dest(self):
+        return self._ori_hub_dest
 
-copy_ori_hub_dest=deepcopy(ori_hub_dest)
-copy_hub_name=(list(hub_name),list(hub_name),list(hub_name))
-copy_hub_lats=(list(hub_lats),list(hub_lats),list(hub_lats))
-copy_hub_lngs=(list(hub_lngs),list(hub_lngs),list(hub_lngs))
-sort_hub(copy_ori_hub_dest,copy_hub_name,copy_hub_lats,copy_hub_lngs)
+    def get_copy_hub_name(self):
+        return self._copy_hub_name
 
-print("")
-
-print("The shortest distance ")
-for i in range(len(copy_ori_hub_dest)):
-    print("Customer",[i+1]," : ",round((copy_ori_hub_dest[i][0]/1000),1),"km -> ",copy_hub_name[i][0])
-
-############ Part 4 ###############
-
-for i in range(len(cus_no)):
-    gmap.directions(
-    (cus_origin_lats[i],cus_origin_lngs[i]),
-    (cus_dest_lats[i],cus_dest_lngs[i]),
-    waypoints=[(cus_origin_lats[i],cus_origin_lngs[i]),(copy_hub_lats[i][0], copy_hub_lngs[i][0]),(cus_dest_lats[i],cus_dest_lngs[i])]
-)
-
-gmap.draw('map_line_shortest.html')
+    def __sorting(self):
+        for idx in range(len(self._copy_ori_hub_dest)):
+            for i in range(len(self._copy_ori_hub_dest[idx])):
+                min_idx = i
+                for j in range(i + 1, len(self._copy_ori_hub_dest[idx])):
+                    if self._copy_ori_hub_dest[idx][min_idx] > self._copy_ori_hub_dest[idx][j]:
+                        min_idx = j
+                self._copy_ori_hub_dest[idx][i], self._copy_ori_hub_dest[idx][min_idx] = self._copy_ori_hub_dest[idx][min_idx], self._copy_ori_hub_dest[idx][i]
+                self._copy_hub_name[idx][i], self._copy_hub_name[idx][min_idx] = self._copy_hub_name[idx][min_idx],self._copy_hub_name[idx][i]
+                self._copy_hub_lats[idx][i], self._copy_hub_lats[idx][min_idx] = self._copy_hub_lats[idx][min_idx],self._copy_hub_lats[idx][i]
+                self._copy_hub_lngs[idx][i], self._copy_hub_lngs[idx][min_idx] = self._copy_hub_lngs[idx][min_idx],self._copy_hub_lngs[idx][i]
