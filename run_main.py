@@ -1,5 +1,7 @@
 import problem1 as p1
 
+import problem3 as p3
+
 hub_name, hub_lats, hub_lngs = zip(*[
     ('City-link Express (Port Klang)',3.0319924887507144, 101.37344116244806),
     ('Pos Laju (Petaling Jaya)',3.112924170027219, 101.63982650389863),
@@ -21,4 +23,8 @@ cus_dest_lats, cus_dest_lngs = zip(*[
 ])
 
 x=p1.problem1(hub_name,hub_lats,hub_lngs,cus_no,cus_origin_lats,cus_origin_lngs,cus_dest_lats,cus_dest_lngs)
+ori_hub_dest=x.get_ori_hub_dest()
 x.solving_Problem1()
+
+y=p3.problem3(ori_hub_dest)
+y.solving_Problem3()
