@@ -3,7 +3,7 @@ import requests
 import json
 from copy import deepcopy
 
-api_key = 'AIzaSyDbyq06H7kJtIKq'
+api_key = 'AIzaSyDbyq06H7kJt'
 url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 
 class problem1:
