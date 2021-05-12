@@ -2,12 +2,14 @@ from copy import deepcopy
 
 class problem3:
 
-    def __init__(self, ori_hub_dest):
+    def __init__(self, ori_hub_dest,ration):
         self._ori_hub_dest=ori_hub_dest
+        self._ration=ration
 
     def solving_Problem3(self):
         print(self.__rankify())
         print(self.__scoring())
+        print(self.__probdist())
 
     def __rankify(self):
         result=deepcopy(self._ori_hub_dest)
@@ -25,4 +27,11 @@ class problem3:
         for idx in range(len(result)):
             for jdx in range(len(result[idx])):
                 result[idx][jdx]=result[idx][jdx]/5
+        return result
+
+    def __probdist(self):
+        result=self.__scoring()
+        for idx in range(len(result)):
+            for jdx in range(len(result[idx])):
+                result[idx][jdx]=result[idx][jdx]*self._ration[jdx]
         return result

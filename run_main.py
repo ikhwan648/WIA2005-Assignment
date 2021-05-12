@@ -1,5 +1,5 @@
 import problem1 as p1
-
+import problem2 as p2
 import problem3 as p3
 
 hub_name, hub_lats, hub_lngs = zip(*[
@@ -22,9 +22,19 @@ cus_dest_lats, cus_dest_lngs = zip(*[
     (2.9188704151716256, 101.65251821655471),   #Customer 3
 ])
 
+txtname=['citylinkCompile.txt','poslajuCompile.txt','gdexCompile.txt','j&tCompile.txt','dhlCompile.txt']
+ration=[0]*len(txtname)
+
 x=p1.problem1(hub_name,hub_lats,hub_lngs,cus_no,cus_origin_lats,cus_origin_lngs,cus_dest_lats,cus_dest_lngs)
 ori_hub_dest=x.get_ori_hub_dest()
 x.solving_Problem1()
 
-y=p3.problem3(ori_hub_dest)
+for i in range(len(txtname)):
+    z=p2.problem2(txtname[i])
+    z.solving_Problem2()
+    ration[i]=z.get_ration()
+
+print(ration)
+
+y=p3.problem3(ori_hub_dest,ration)
 y.solving_Problem3()
