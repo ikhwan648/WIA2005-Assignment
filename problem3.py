@@ -2,14 +2,20 @@ from copy import deepcopy
 
 class problem3:
 
-    def __init__(self, ori_hub_dest,ration):
+    def __init__(self, ori_hub_dest,hub_name,ration):
         self._ori_hub_dest=ori_hub_dest
         self._ration=ration
+        self._hub_name=hub_name
 
     def solving_Problem3(self):
-        print(self.__rankify())
-        print(self.__scoring())
-        print(self.__probdist())
+        prodist=self.__probdist()
+
+        print('Total probability distribution of possible routes')
+        for idx in range(len(prodist)):
+            for jdx in range(len(prodist[idx])):
+                print('Customer',[idx+1],': ',round(prodist[idx][jdx],4),' -> ', self._hub_name[jdx])
+            print('')
+
 
     def __rankify(self):
         result=deepcopy(self._ori_hub_dest)

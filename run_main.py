@@ -36,5 +36,5 @@ for i in range(len(txtname)):
 
 print(ration)
 
-y=p3.problem3(ori_hub_dest,ration)
+y=p3.problem3(ori_hub_dest,hub_name,ration)
 y.solving_Problem3()
