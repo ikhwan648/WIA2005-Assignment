@@ -19,6 +19,7 @@ with open('jnt.txt',mode ='w') as file:
 
 file = open('jnt.txt')
 data = file.read()
+data = data.lower()
 memohoncount = data.count("memohon")
 maafcount = data.count("maaf")
 print("Memohon: ",memohoncount,"kali")
