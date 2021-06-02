@@ -1,6 +1,7 @@
 import problem1 as p1
 import problem2 as p2
 import problem3 as p3
+import problem4 as p4
 
 hub_name, hub_lats, hub_lngs = zip(*[
     ('City-link Express (Port Klang)',3.0319924887507144, 101.37344116244806),
@@ -25,16 +26,19 @@ cus_dest_lats, cus_dest_lngs = zip(*[
 txtname=['citylinkCompile.txt','poslajuCompile.txt','gdexCompile.txt','j&tCompile.txt','dhlCompile.txt']
 ration=[0]*len(txtname)
 
-x=p1.problem1(hub_name,hub_lats,hub_lngs,cus_no,cus_origin_lats,cus_origin_lngs,cus_dest_lats,cus_dest_lngs)
-ori_hub_dest=x.get_ori_hub_dest()
-x.solving_Problem1()
+# x=p1.problem1(hub_name,hub_lats,hub_lngs,cus_no,cus_origin_lats,cus_origin_lngs,cus_dest_lats,cus_dest_lngs)
+# ori_hub_dest=x.get_ori_hub_dest()
+# x.solving_Problem1()
 
-for i in range(len(txtname)):
-    z=p2.problem2(txtname[i])
-    z.solving_Problem2()
-    ration[i]=z.get_ration()
+# for i in range(len(txtname)):
+#     z=p2.problem2(txtname[i])
+#     z.solving_Problem2()
+#     ration[i]=z.get_ration()
 
-print(ration)
+# print(ration)
 
-y=p3.problem3(ori_hub_dest,hub_name,ration)
-y.solving_Problem3()
+# y=p3.problem3(ori_hub_dest,hub_name,ration)
+# y.solving_Problem3()
+
+k=p4.problem4()
+k.solving_Problem4()

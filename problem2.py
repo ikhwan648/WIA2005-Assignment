@@ -29,7 +29,7 @@ class problem2:
 
         frequency_list = frequency.keys()
 
-        print('')
+        #print('')
         # print('Word frequency in the article: ')
         # print('')
         # o = 0
@@ -40,7 +40,7 @@ class problem2:
         #     print(words, "=", frequency[words], end=', ')
         #     o = o + 1
 
-        print('')
+        #print('')
         # print('              Stop words frequency: ')
         # print('')
 
@@ -80,13 +80,13 @@ class problem2:
         e = 0
         for stop_words in pat.split():
             if e == 3:
-                print("")
+                #print("")
                 e = 0
             search(stop_words, whole_word)
             e = e + 1
         # ni utk delete stopwords
         resultwords = [word for word in re.split("\W+", whole_word) if word.lower() not in stop_words]
-        print('')
+        #print('')
         # print('The article without stopwords: ')
         # print('')
         result = ' '.join(resultwords)

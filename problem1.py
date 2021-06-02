@@ -3,7 +3,7 @@ import requests
 import json
 from copy import deepcopy
 
-api_key = 'AIzaSyDbyq06H7kJtIKqnU'
+api_key = 'AIzaSyDbyq06H7kJtIKqnU7dBtLybsn5_O-LUOA'
 url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 
 class problem1:
@@ -113,7 +113,7 @@ class problem1:
     def get_copy_hub_name(self):
         return self._copy_hub_name
 
-    def __sorting(self):
+    def __sorting(self):    # Selection sort
         for idx in range(len(self._copy_ori_hub_dest)):
             for i in range(len(self._copy_ori_hub_dest[idx])):
                 min_idx = i
