@@ -82,7 +82,8 @@ class problem1:
 
         self._copy_ori_hub_dest = deepcopy(self._ori_hub_dest)
         
-        self.__sorting()
+        for i in range(len(self._copy_ori_hub_dest)):
+            self.__quickSortIterative(self._copy_ori_hub_dest[i], 0, len(self._copy_ori_hub_dest[i])-1,self._copy_hub_name[i],self._copy_hub_lats[i],self._copy_hub_lngs[i])
 
         for idx in range(len(self._ori_hub_dest)):
             for i in range(len(self._ori_hub_dest[idx])):
@@ -113,14 +114,63 @@ class problem1:
     def get_copy_hub_name(self):
         return self._copy_hub_name
 
-    def __sorting(self):    # Selection sort
-        for idx in range(len(self._copy_ori_hub_dest)):
-            for i in range(len(self._copy_ori_hub_dest[idx])):
-                min_idx = i
-                for j in range(i + 1, len(self._copy_ori_hub_dest[idx])):
-                    if self._copy_ori_hub_dest[idx][min_idx] > self._copy_ori_hub_dest[idx][j]:
-                        min_idx = j
-                self._copy_ori_hub_dest[idx][i], self._copy_ori_hub_dest[idx][min_idx] = self._copy_ori_hub_dest[idx][min_idx], self._copy_ori_hub_dest[idx][i]
-                self._copy_hub_name[idx][i], self._copy_hub_name[idx][min_idx] = self._copy_hub_name[idx][min_idx],self._copy_hub_name[idx][i]
-                self._copy_hub_lats[idx][i], self._copy_hub_lats[idx][min_idx] = self._copy_hub_lats[idx][min_idx],self._copy_hub_lats[idx][i]
-                self._copy_hub_lngs[idx][i], self._copy_hub_lngs[idx][min_idx] = self._copy_hub_lngs[idx][min_idx],self._copy_hub_lngs[idx][i]
+    def __partition(self,arr,l,h,name,lats,lngs):
+        i = (l - 1)
+        x = arr[h]
+
+        for j in range(l, h):
+            if arr[j] <= x:
+                # increment index of smaller element
+                i = i + 1
+                arr[i], arr[j] = arr[j], arr[i]
+                name[i], name[j] = name[j], name[i]
+                lats[i], lats[j] = lats[j], lats[i]
+                lngs[i], lngs[j] = lngs[j], lngs[i]
+
+        arr[i + 1], arr[h] = arr[h], arr[i + 1]
+        name[i+1], name[h] = name[h], name[i+1]
+        lats[i+1], lats[h] = lats[h], lats[i+1]
+        lngs[i+1], lngs[h] = lngs[h], lngs[i+1]
+        return (i + 1)
+
+    def __quickSortIterative(self,arr, l, h,name,lats,lngs):
+        size = h - l + 1
+        stack = [0] * (size)
+
+        # initialize top of stack
+        top = -1
+
+        # push initial values of l and h to stack
+        top = top + 1
+        stack[top] = l
+        top = top + 1
+        stack[top] = h
+
+        # Keep popping from stack while is not empty
+        while top >= 0:
+
+            # Pop h and l
+            h = stack[top]
+            top = top - 1
+            l = stack[top]
+            top = top - 1
+
+            # Set pivot element at its correct position in
+            # sorted array
+            p = self.__partition(arr, l, h,name,lats,lngs)
+
+            # If there are elements on left side of pivot,
+            # then push left side to stack
+            if p - 1 > l:
+                top = top + 1
+                stack[top] = l
+                top = top + 1
+                stack[top] = p - 1
+
+            # If there are elements on right side of pivot,
+            # then push right side to stack
+            if p + 1 < h:
+                top = top + 1
+                stack[top] = p + 1
+                top = top + 1
+                stack[top] = h
