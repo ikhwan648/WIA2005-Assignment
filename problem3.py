@@ -48,7 +48,7 @@ class problem3:
                 result[idx][jdx]=result[idx][jdx]*self._ration[jdx]
         return result
 
-    def __sortProbdist(self):
+    def __sortProbdist(self):   #Selection Sort
         result=self.__probdist()
         for idx in range(len(result)):
             for i in range(len(result[idx])):
