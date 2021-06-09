@@ -216,8 +216,8 @@ class problem2:
         totalPositive = len(array)
 
         print('Total number of positive word in the article is = ', totalPositive)
-        # plt.hist(array)
-        # plt.show()
+        plt.hist(array)
+        plt.show()
 
         i = 0
         j = 0
@@ -249,11 +249,11 @@ class problem2:
 
         self._average=totalPositive/alltotal
 
-        # plt.hist(arrayNegative)
-        # plt.show()
+        plt.hist(arrayNegative)
+        plt.show()
 
-        # plt.hist(frequency)
-        # plt.show()
+        plt.hist(frequency)
+        plt.show()
 
         print("The ration for this article is   =", self._average)
 

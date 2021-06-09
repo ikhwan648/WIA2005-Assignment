@@ -45,7 +45,7 @@ class problem1:
         ori_hub = tuple((([0 for i in range(len(self._hub_name))]) for i in range(len(self._cus_no))))
         hub_dest = tuple((([0 for i in range(len(self._hub_name))]) for i in range(len(self._cus_no))))
 
-        # Distance between origin and destination
+        # Distance between origin and hub
         count = 0
         n = len(self._cus_no)
         while count < n:
