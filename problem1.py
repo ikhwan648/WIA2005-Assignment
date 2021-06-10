@@ -105,6 +105,17 @@ class problem1:
             )
         gmap.draw('map_line_shortest.html')
 
+        for i in range(len(self._cus_no)):
+            for j in range(len(self._hub_name)):
+                gmap.directions(
+                    (self._cus_origin_lats[i], self._cus_origin_lngs[i]),
+                    (self._cus_dest_lats[i], self._cus_dest_lngs[i]),
+                    waypoints=[(self._cus_origin_lats[i], self._cus_origin_lngs[i]),
+                           (self._copy_hub_lats[i][j], self._copy_hub_lngs[i][j]),
+                           (self._cus_dest_lats[i], self._cus_dest_lngs[i])]
+                )
+            gmap.draw('map_line_all_route.html')
+
     def get_copy_ori_hub_dest(self):
         return self._copy_ori_hub_dest
 
