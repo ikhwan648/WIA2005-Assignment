@@ -94,6 +94,25 @@ class problem1:
         print("The shortest distance ")
         for i in range(len(self._copy_ori_hub_dest)):
             print("Customer", [i + 1], ": ", round((self._copy_ori_hub_dest[i][0] / 1000), 1), "km -> ",self._copy_hub_name[i][0])
+        
+        # Map all route before find shortest distance
+        googe=gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
+        googe.coloricon = "http://www.googlemapsmarkers.com/v1/%s/"
+
+        for i in range(len(self._hub_name)):
+            googe.marker(self._hub_lats[i], self._hub_lngs[i], color='blue', title=self._hub_name[i])
+        
+        for i in range(len(self._cus_no)):
+            for j in range(len(self._hub_name)):
+                googe.directions(
+                    (self._cus_origin_lats[i], self._cus_origin_lngs[i]),
+                    (self._cus_dest_lats[i], self._cus_dest_lngs[i]),
+                    waypoints=[(self._cus_origin_lats[i], self._cus_origin_lngs[i]),
+                           (self._copy_hub_lats[i][j], self._copy_hub_lngs[i][j]),
+                           (self._cus_dest_lats[i], self._cus_dest_lngs[i])]
+                )
+                googe.draw('map_line_all_route_customer_'+str(i+1)+'.html')
+
 
         for i in range(len(self._cus_no)):
             gmap.directions(
@@ -105,16 +124,6 @@ class problem1:
             )
         gmap.draw('map_line_shortest.html')
 
-        for i in range(len(self._cus_no)):
-            for j in range(len(self._hub_name)):
-                gmap.directions(
-                    (self._cus_origin_lats[i], self._cus_origin_lngs[i]),
-                    (self._cus_dest_lats[i], self._cus_dest_lngs[i]),
-                    waypoints=[(self._cus_origin_lats[i], self._cus_origin_lngs[i]),
-                           (self._copy_hub_lats[i][j], self._copy_hub_lngs[i][j]),
-                           (self._cus_dest_lats[i], self._cus_dest_lngs[i])]
-                )
-            gmap.draw('map_line_all_route.html')
 
     def get_copy_ori_hub_dest(self):
         return self._copy_ori_hub_dest
