@@ -3,7 +3,7 @@ import requests
 import json
 from copy import deepcopy
 
-api_key = ''    # input your API key
+api_key = 'AIzaSyDbyq06H7kJtIKqnU7dBtLybsn5_O-LUOA'    # input your API key
 url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 
 class problem1:
@@ -83,11 +83,13 @@ class problem1:
         self._copy_ori_hub_dest = deepcopy(self._ori_hub_dest)
         
         for i in range(len(self._copy_ori_hub_dest)):
-            self.__quickSortIterative(self._copy_ori_hub_dest[i], 0, len(self._copy_ori_hub_dest[i])-1,self._copy_hub_name[i],self._copy_hub_lats[i],self._copy_hub_lngs[i])
+            self.__quickSortIterative(self._copy_ori_hub_dest[i], 0, len(self._copy_ori_hub_dest[i])-1,self._copy_hub_name[i],
+            self._copy_hub_lats[i],self._copy_hub_lngs[i])
 
         for idx in range(len(self._ori_hub_dest)):
             for i in range(len(self._ori_hub_dest[idx])):
-                print("Customer", [idx + 1], ": ", round((self._copy_ori_hub_dest[idx][i] / 1000), 1), "km -> ",self._copy_hub_name[idx][i])
+                print("Customer", [idx + 1], ": ", round((self._copy_ori_hub_dest[idx][i] / 1000), 1), "km -> ",
+                self._copy_hub_name[idx][i])
 
         print('')
 
@@ -95,25 +97,60 @@ class problem1:
         for i in range(len(self._copy_ori_hub_dest)):
             print("Customer", [i + 1], ": ", round((self._copy_ori_hub_dest[i][0] / 1000), 1), "km -> ",self._copy_hub_name[i][0])
         
-        # Map all route before find shortest distance
-        googe=gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
-        googe.coloricon = "http://www.googlemapsmarkers.com/v1/%s/"
+        ### Map all route before find shortest distance ###
+
+        # Customer 1
+        gmap1=gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
+        gmap1.coloricon = "http://www.googlemapsmarkers.com/v1/%s/"
 
         for i in range(len(self._hub_name)):
-            googe.marker(self._hub_lats[i], self._hub_lngs[i], color='blue', title=self._hub_name[i])
+            gmap1.marker(self._hub_lats[i], self._hub_lngs[i], color='blue', title=self._hub_name[i])
         
-        for i in range(len(self._cus_no)):
-            for j in range(len(self._hub_name)):
-                googe.directions(
-                    (self._cus_origin_lats[i], self._cus_origin_lngs[i]),
-                    (self._cus_dest_lats[i], self._cus_dest_lngs[i]),
-                    waypoints=[(self._cus_origin_lats[i], self._cus_origin_lngs[i]),
-                           (self._copy_hub_lats[i][j], self._copy_hub_lngs[i][j]),
-                           (self._cus_dest_lats[i], self._cus_dest_lngs[i])]
-                )
-                googe.draw('map_line_all_route_customer_'+str(i+1)+'.html')
+        for j in range(len(self._hub_name)):
+            gmap1.directions(
+                (self._cus_origin_lats[0], self._cus_origin_lngs[0]),
+                (self._cus_dest_lats[0], self._cus_dest_lngs[0]),
+                waypoints=[(self._cus_origin_lats[0], self._cus_origin_lngs[0]),
+                        (self._hub_lats[j], self._hub_lngs[j]),
+                        (self._cus_dest_lats[0], self._cus_dest_lngs[0])]
+            )
+        gmap1.draw('map_line_all_route_customer_1.html')
 
+        # Customer 2
+        gmap2=gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
+        gmap2.coloricon = "http://www.googlemapsmarkers.com/v1/%s/"
 
+        for i in range(len(self._hub_name)):
+            gmap2.marker(self._hub_lats[i], self._hub_lngs[i], color='blue', title=self._hub_name[i])
+        
+        for j in range(len(self._hub_name)):
+            gmap2.directions(
+                (self._cus_origin_lats[1], self._cus_origin_lngs[1]),
+                (self._cus_dest_lats[1], self._cus_dest_lngs[1]),
+                waypoints=[(self._cus_origin_lats[1], self._cus_origin_lngs[1]),
+                        (self._hub_lats[j], self._hub_lngs[j]),
+                        (self._cus_dest_lats[1], self._cus_dest_lngs[1])]
+            )
+        gmap2.draw('map_line_all_route_customer_2.html')
+
+        # Customer 3
+        gmap3=gmplot.GoogleMapPlotter(3.0303666, 101.5501978, 10.5, apikey=api_key)
+        gmap3.coloricon = "http://www.googlemapsmarkers.com/v1/%s/"
+
+        for i in range(len(self._hub_name)):
+            gmap3.marker(self._hub_lats[i], self._hub_lngs[i], color='blue', title=self._hub_name[i])
+        
+        for j in range(len(self._hub_name)):
+            gmap3.directions(
+                (self._cus_origin_lats[2], self._cus_origin_lngs[2]),
+                (self._cus_dest_lats[2], self._cus_dest_lngs[2]),
+                waypoints=[(self._cus_origin_lats[2], self._cus_origin_lngs[2]),
+                        (self._hub_lats[j], self._hub_lngs[j]),
+                        (self._cus_dest_lats[2], self._cus_dest_lngs[2])]
+            )
+        gmap3.draw('map_line_all_route_customer_3.html')
+
+        # Map shortest route
         for i in range(len(self._cus_no)):
             gmap.directions(
                 (self._cus_origin_lats[i], self._cus_origin_lngs[i]),

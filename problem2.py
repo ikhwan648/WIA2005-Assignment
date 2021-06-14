@@ -105,7 +105,6 @@ class problem2:
 
         counter = 0
 
-
         def KMPSearch(pat, txt):
             M = len(pat)
             N = len(txt)

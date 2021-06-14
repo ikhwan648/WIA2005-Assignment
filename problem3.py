@@ -9,13 +9,6 @@ class problem3:
         self._copy_hub_name = (list(self._hub_name), list(self._hub_name), list(self._hub_name))
 
     def solving_Problem3(self):
-        # prodist=self.__probdist()
-
-        # print('Total probability distribution of possible routes')
-        # for idx in range(len(prodist)):
-        #     for jdx in range(len(prodist[idx])):
-        #         print('Customer',[idx+1],': ',round(prodist[idx][jdx],4),' -> ', self._hub_name[jdx])
-        #     print('')
         prodist=self.__sortProbdist()
         print('Total probability distribution of possible routes')
         for idx in range(len(prodist)):
@@ -57,5 +50,6 @@ class problem3:
                     if result[idx][min_idx] < result[idx][j]:
                         min_idx = j
                 result[idx][i], result[idx][min_idx] = result[idx][min_idx], result[idx][i]
-                self._copy_hub_name[idx][i], self._copy_hub_name[idx][min_idx] = self._copy_hub_name[idx][min_idx],self._copy_hub_name[idx][i]
+                self._copy_hub_name[idx][i], self._copy_hub_name[idx][min_idx] = self._copy_hub_name[idx][min_idx],
+                self._copy_hub_name[idx][i]
         return result

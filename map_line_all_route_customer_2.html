@@ -52,86 +52,11 @@
         });
 
         new google.maps.DirectionsService().route({
-            origin: new google.maps.LatLng(3.361540, 101.563182),
-            destination: new google.maps.LatLng(3.100017, 101.530715),
-            waypoints: [
-                {location: new google.maps.LatLng(3.361540, 101.563182), stopover: false},
-                {location: new google.maps.LatLng(3.212723, 101.574673), stopover: false},
-                {location: new google.maps.LatLng(3.100017, 101.530715), stopover: false},
-            ],
-            travelMode: "DRIVING"
-        }, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                new google.maps.DirectionsRenderer({map: map}).setDirections(response);
-            }
-        });
-
-        new google.maps.DirectionsService().route({
-            origin: new google.maps.LatLng(3.361540, 101.563182),
-            destination: new google.maps.LatLng(3.100017, 101.530715),
-            waypoints: [
-                {location: new google.maps.LatLng(3.361540, 101.563182), stopover: false},
-                {location: new google.maps.LatLng(3.265155, 101.680248), stopover: false},
-                {location: new google.maps.LatLng(3.100017, 101.530715), stopover: false},
-            ],
-            travelMode: "DRIVING"
-        }, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                new google.maps.DirectionsRenderer({map: map}).setDirections(response);
-            }
-        });
-
-        new google.maps.DirectionsService().route({
-            origin: new google.maps.LatLng(3.361540, 101.563182),
-            destination: new google.maps.LatLng(3.100017, 101.530715),
-            waypoints: [
-                {location: new google.maps.LatLng(3.361540, 101.563182), stopover: false},
-                {location: new google.maps.LatLng(3.112924, 101.639827), stopover: false},
-                {location: new google.maps.LatLng(3.100017, 101.530715), stopover: false},
-            ],
-            travelMode: "DRIVING"
-        }, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                new google.maps.DirectionsRenderer({map: map}).setDirections(response);
-            }
-        });
-
-        new google.maps.DirectionsService().route({
-            origin: new google.maps.LatLng(3.361540, 101.563182),
-            destination: new google.maps.LatLng(3.100017, 101.530715),
-            waypoints: [
-                {location: new google.maps.LatLng(3.361540, 101.563182), stopover: false},
-                {location: new google.maps.LatLng(3.031992, 101.373441), stopover: false},
-                {location: new google.maps.LatLng(3.100017, 101.530715), stopover: false},
-            ],
-            travelMode: "DRIVING"
-        }, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                new google.maps.DirectionsRenderer({map: map}).setDirections(response);
-            }
-        });
-
-        new google.maps.DirectionsService().route({
-            origin: new google.maps.LatLng(3.361540, 101.563182),
-            destination: new google.maps.LatLng(3.100017, 101.530715),
-            waypoints: [
-                {location: new google.maps.LatLng(3.361540, 101.563182), stopover: false},
-                {location: new google.maps.LatLng(2.944121, 101.790152), stopover: false},
-                {location: new google.maps.LatLng(3.100017, 101.530715), stopover: false},
-            ],
-            travelMode: "DRIVING"
-        }, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                new google.maps.DirectionsRenderer({map: map}).setDirections(response);
-            }
-        });
-
-        new google.maps.DirectionsService().route({
             origin: new google.maps.LatLng(3.049398, 101.585466),
             destination: new google.maps.LatLng(3.227994, 101.427304),
             waypoints: [
                 {location: new google.maps.LatLng(3.049398, 101.585466), stopover: false},
-                {location: new google.maps.LatLng(3.212723, 101.574673), stopover: false},
+                {location: new google.maps.LatLng(3.031992, 101.373441), stopover: false},
                 {location: new google.maps.LatLng(3.227994, 101.427304), stopover: false},
             ],
             travelMode: "DRIVING"
@@ -147,21 +72,6 @@
             waypoints: [
                 {location: new google.maps.LatLng(3.049398, 101.585466), stopover: false},
                 {location: new google.maps.LatLng(3.112924, 101.639827), stopover: false},
-                {location: new google.maps.LatLng(3.227994, 101.427304), stopover: false},
-            ],
-            travelMode: "DRIVING"
-        }, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                new google.maps.DirectionsRenderer({map: map}).setDirections(response);
-            }
-        });
-
-        new google.maps.DirectionsService().route({
-            origin: new google.maps.LatLng(3.049398, 101.585466),
-            destination: new google.maps.LatLng(3.227994, 101.427304),
-            waypoints: [
-                {location: new google.maps.LatLng(3.049398, 101.585466), stopover: false},
-                {location: new google.maps.LatLng(3.031992, 101.373441), stopover: false},
                 {location: new google.maps.LatLng(3.227994, 101.427304), stopover: false},
             ],
             travelMode: "DRIVING"
@@ -192,6 +102,21 @@
             waypoints: [
                 {location: new google.maps.LatLng(3.049398, 101.585466), stopover: false},
                 {location: new google.maps.LatLng(2.944121, 101.790152), stopover: false},
+                {location: new google.maps.LatLng(3.227994, 101.427304), stopover: false},
+            ],
+            travelMode: "DRIVING"
+        }, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                new google.maps.DirectionsRenderer({map: map}).setDirections(response);
+            }
+        });
+
+        new google.maps.DirectionsService().route({
+            origin: new google.maps.LatLng(3.049398, 101.585466),
+            destination: new google.maps.LatLng(3.227994, 101.427304),
+            waypoints: [
+                {location: new google.maps.LatLng(3.049398, 101.585466), stopover: false},
+                {location: new google.maps.LatLng(3.212723, 101.574673), stopover: false},
                 {location: new google.maps.LatLng(3.227994, 101.427304), stopover: false},
             ],
             travelMode: "DRIVING"
